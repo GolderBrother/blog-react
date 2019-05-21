@@ -1,0 +1,32 @@
+.home .content {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 12%;
+}
+.home .content .home-logo {
+  width: 220px;
+  border-radius: 50%;
+}
+.home .content .home-header .link {
+  display: block;
+}
+.home .content .home-body {
+  padding-top: 20px;
+}
+.home .content .home-body .list .link {
+  display: inline-block;
+  padding: 20px;
+  color: #aaa;
+  min-width: 80px;
+}
+.home .content .home-body .list .link:hover {
+  color: #9b2323;
+}
+.home .content .introduce {
+  color: #960026;
+}
