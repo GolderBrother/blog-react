@@ -111,7 +111,7 @@ npm start 或者 yarn start
 npm run build 或者 yarn run build
 ```
 
-如果要看完整的效果，是要和后台项目 **[blog-node](https://github.com/biaochenxuying/blog-node)** 一起运行才行的，不然接口请求会失败。
+如果要看完整的效果，是要和后台项目 **[blog-node-eggjs](https://github.com/GolderBrother/blog-node-eggjs)** 一起运行才行的，不然接口请求会失败。
 
 虽然引入了 mock 了，但是还没有时间做模拟数据，想看具体效果，请稳步到我的网站上查看 [http://biaochenxuying.cn:2019](http://biaochenxuying.cn:2019)
 
