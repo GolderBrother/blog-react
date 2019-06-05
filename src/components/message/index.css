@@ -1,0 +1,10 @@
+.message {
+  width: 50%;
+  max-width: 400px;
+  margin: auto;
+  padding-top: 50px;
+  padding-right: 30px;
+}
+.clearfix {
+  clear: both;
+}
