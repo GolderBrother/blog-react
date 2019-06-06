@@ -120,7 +120,7 @@ npm run build 或者 yarn run build
 
 > [管理后台：https://github.com/GolderBrother/blog-react-admin](https://github.com/GolderBrother/blog-react-admin)
 
-> [后端：https://github.com/GolderBrother/blog-node-eggjs](https://github.com/GolderBrother/blog-node-eggjs)
+> [后端：https://github.com/GolderBrother/blog-node-egg](https://github.com/GolderBrother/blog-node-egg)
 
 ## 最后
 
