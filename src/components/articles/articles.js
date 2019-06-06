@@ -37,6 +37,7 @@ const lazyload = throttle(() => {
       let hasLaySrc = imgs[i].getAttribute('data-has-lazy-src');
       if (hasLaySrc === 'false') {
         imgs[i].src = imgs[i].getAttribute('data-src');
+        // 给元素写入真实的 src 了之后，把 data-has-lazy-src 设置为 true ，是为了避免回滚的时候再设置真实的 src 时，浏览器会再请求这个图片一次，白白浪费服务器带宽
         imgs[i].setAttribute('data-has-lazy-src', true);
       }
       // 前 i 张图片已经加载完毕，下次从第 i+1 张开始检查是否露出

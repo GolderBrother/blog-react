@@ -27,6 +27,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 // const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+// 生产环境下，打包去掉 SourceMap，静态文件就很小了
 const shouldUseSourceMap = process.env.NODE_ENV === 'production' ? false : true;
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
@@ -324,6 +325,7 @@ module.exports = function(webpackEnv) {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/,/\.jpg$/,/\.svg$/],
               loader: require.resolve('url-loader'),
               options: {
+                // 修改了图片打包大小的限制，这样子小于 40K 的图片都会变成 base64 的图片格式。
                 limit: 40000,
                 name: 'static/media/[name].[hash:8].[ext]',
               },

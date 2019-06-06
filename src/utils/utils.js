@@ -1,10 +1,12 @@
 // fn是我们需要包装的事件回调, delay是时间间隔的阈值
 import crypto from 'crypto';
-export const MD5_SUFFIX = 'www.biaochenxuying.cn*&^%$#';
+export const MD5_SUFFIX = 'www.golderBrother.cn*&^%$#';
 export function md5 (pwd) {
   let md5 = crypto.createHash('md5');
   return md5.update(pwd).digest('hex');
 }
+// 图片懒加载功能
+// 事件的节流（throttle）
 export function throttle(fn, delay) {
   // last为上一次触发回调的时间, timer是定时器
   let last = 0,
