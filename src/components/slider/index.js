@@ -1,23 +1,23 @@
-import './index.less';
-import logo from '../../assets/userLogo.jpg';
-import BiaoChenXuYing from '../../assets/BiaoChenXuYing.png';
-import React, { Component } from 'react';
-import { Avatar, message } from 'antd';
-import { Link } from 'react-router-dom';
-import https from '../../utils/https';
-import urls from '../../utils/urls';
+import "./index.less";
+import logo from "../../assets/userLogo.jpg";
+import BiaoChenXuYing from "../../assets/BiaoChenXuYing.png";
+import React, { Component } from "react";
+import { Avatar, message } from "antd";
+import { Link } from "react-router-dom";
+import https from "../../utils/https";
+import urls from "../../utils/urls";
 
 class SliderRight extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      keyword: '',
+      keyword: "",
       type: 2, //1 :其他友情链接 2: 是管理员的个人链接 ,‘’ 代表所有链接
       pageNum: 1,
       pageSize: 50,
       list: [],
-      linkList: [],
+      linkList: []
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -52,27 +52,27 @@ class SliderRight extends Component {
   //     });
   // };
 
-  handleSearch = () => {
-    https
-      .get(urls.getTagList, {
+  handleSearch = async () => {
+    try {
+      const res = await https.get(urls.getTagList, {
         params: {
           keyword: this.state.keyword,
           pageNum: this.state.pageNum,
-          pageSize: this.state.pageSize,
-        },
-      })
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          this.setState({
-            list: res.data.data.list,
-          });
-        } else {
-          message.error(res.data.message);
+          pageSize: this.state.pageSize
         }
-      })
-      .catch(err => {
-        console.log(err);
       });
+      console.log('getTagList res', res);
+      if (!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        this.setState({
+          list: res.data.data.list
+        });
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   handleClick(event) {
@@ -132,9 +132,14 @@ class SliderRight extends Component {
         <div className="introduce">
           <div className="title">本站公众号</div>
           <div className="content">
-            分享 WEB 全栈开发等相关的技术文章，热点资源<br />
+            分享 WEB 全栈开发等相关的技术文章，热点资源
+            <br />
             全栈程序员的成长之路
-            <img style={{'width':'100%',marginTop: '20px'}} src={BiaoChenXuYing} alt="公众号" />
+            <img
+              style={{ width: "100%", marginTop: "20px" }}
+              src={BiaoChenXuYing}
+              alt="公众号"
+            />
           </div>
         </div>
       </div>

@@ -1,31 +1,31 @@
-import './index.less';
-import React, { Component } from 'react';
-import { Icon } from 'antd';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import https from '../../utils/https';
-import urls from '../../utils/urls';
-import LoadingCom from '../loading/loading';
-import LoadEndCom from '../loadEnd/loadEnd';
-import bg from '../../assets/bg.jpg';
+import "./index.less";
+import React, { Component } from "react";
+import { Icon } from "antd";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import https from "../../utils/https";
+import urls from "../../utils/urls";
+import LoadingCom from "../loading/loading";
+import LoadEndCom from "../loadEnd/loadEnd";
+import bg from "../../assets/bg.jpg";
 import {
   throttle,
   getScrollTop,
   getDocumentHeight,
   getWindowHeight,
   getQueryStringByName,
-  timestampToTime,
-} from '../../utils/utils';
+  timestampToTime
+} from "../../utils/utils";
 /*actions*/
-import { saveArticlesList } from '../../store/actions/articles';
+import { saveArticlesList } from "../../store/actions/articles";
 
 // 获取可视区域的高度
 const viewHeight = window.innerHeight || document.documentElement.clientHeight;
 // 用新的 throttle 包装 scroll 的回调
 const lazyload = throttle(() => {
   // 获取所有的图片标签
-  const imgs = document.querySelectorAll('#list .wrap-img img');
+  const imgs = document.querySelectorAll("#list .wrap-img img");
   // num 用于统计当前显示到了哪一张图片，避免每次都从第一张图片开始检查是否露出
   let num = 0;
   for (let i = num; i < imgs.length; i++) {
@@ -34,11 +34,11 @@ const lazyload = throttle(() => {
     // 如果可视区域高度大于等于元素顶部距离可视区域顶部的高度，说明元素露出
     if (distance >= 100) {
       // 给元素写入真实的 src，展示图片
-      let hasLaySrc = imgs[i].getAttribute('data-has-lazy-src');
-      if (hasLaySrc === 'false') {
-        imgs[i].src = imgs[i].getAttribute('data-src');
+      let hasLaySrc = imgs[i].getAttribute("data-has-lazy-src");
+      if (hasLaySrc === "false") {
+        imgs[i].src = imgs[i].getAttribute("data-src");
         // 给元素写入真实的 src 了之后，把 data-has-lazy-src 设置为 true ，是为了避免回滚的时候再设置真实的 src 时，浏览器会再请求这个图片一次，白白浪费服务器带宽
-        imgs[i].setAttribute('data-has-lazy-src', true);
+        imgs[i].setAttribute("data-has-lazy-src", true);
       }
       // 前 i 张图片已经加载完毕，下次从第 i+1 张开始检查是否露出
       num = i + 1;
@@ -48,7 +48,7 @@ const lazyload = throttle(() => {
 
 @connect(
   state => state.articles,
-  { saveArticlesList },
+  { saveArticlesList }
 )
 class Articles extends Component {
   constructor(props) {
@@ -56,16 +56,16 @@ class Articles extends Component {
     this.state = {
       isLoadEnd: false,
       isLoading: false,
-      keyword: '',
-      likes: '', // 是否是热门文章
+      keyword: "",
+      likes: "", // 是否是热门文章
       state: 1, // 文章发布状态 => 0 草稿，1 已发布,'' 代表所有文章
-      tag_id: getQueryStringByName('tag_id'),
-      tag_name: decodeURI(getQueryStringByName('tag_name')),
-      category_id: getQueryStringByName('category_id'),
+      tag_id: getQueryStringByName("tag_id"),
+      tag_name: decodeURI(getQueryStringByName("tag_name")),
+      category_id: getQueryStringByName("category_id"),
       pageNum: 1,
       pageSize: 10,
       articlesList: [],
-      total: 0,
+      total: 0
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.getBlog = this.getBlog.bind(this);
@@ -77,7 +77,7 @@ class Articles extends Component {
       likes: this.state.likes,
       state: this.state.state,
       pageNum: this.state.pageNum,
-      pageSize: this.state.pageSize,
+      pageSize: this.state.pageSize
     };
     this.props.getBlogList(params);
   }
@@ -88,26 +88,26 @@ class Articles extends Component {
         {
           pageNum: 1,
           articlesList: [],
-          tag_id: getQueryStringByName('tag_id'),
-          tag_name: decodeURI(getQueryStringByName('tag_name')),
-          category_id: getQueryStringByName('category_id'),
+          tag_id: getQueryStringByName("tag_id"),
+          tag_name: decodeURI(getQueryStringByName("tag_name")),
+          category_id: getQueryStringByName("category_id")
         },
         () => {
           this.handleSearch();
-        },
+        }
       );
     }
   }
 
   componentDidMount() {
-    if (this.props.location.pathname === '/hot') {
+    if (this.props.location.pathname === "/hot") {
       this.setState(
         {
-          likes: true,
+          likes: true
         },
         () => {
           this.handleSearch();
-        },
+        }
       );
     } else {
       this.handleSearch();
@@ -121,15 +121,15 @@ class Articles extends Component {
       }
     };
 
-    document.addEventListener('scroll', lazyload);
+    document.addEventListener("scroll", lazyload);
   }
 
-  handleSearch() {
+  async handleSearch() {
     this.setState({
-      isLoading: true,
+      isLoading: true
     });
-    https
-      .get(
+    try {
+      const res = await https.get(
         urls.getArticleList,
         {
           params: {
@@ -139,32 +139,32 @@ class Articles extends Component {
             tag_id: this.state.tag_id,
             category_id: this.state.category_id,
             pageNum: this.state.pageNum,
-            pageSize: this.state.pageSize,
-          },
-        },
-        { withCredentials: true },
-      )
-      .then(res => {
-        let num = this.state.pageNum;
-        if (res.status === 200 && res.data.code === 0) {
-          this.setState(preState => ({
-            articlesList: [...preState.articlesList, ...res.data.data.list],
-            total: res.data.data.count,
-            pageNum: ++num,
-            isLoading: false,
-          }));
-          if (this.state.total === this.state.articlesList.length) {
-            this.setState({
-              isLoadEnd: true,
-            });
+            pageSize: this.state.pageSize
           }
-          lazyload();
-        } else {
+        },
+        { withCredentials: true }
+      );
+      console.log('getArticleList res:', res);
+      let num = this.state.pageNum;
+      if (!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        this.setState(preState => ({
+          articlesList: [...preState.articlesList, ...res.data.data.list],
+          total: res.data.data.count,
+          pageNum: ++num,
+          isLoading: false
+        }));
+        if (this.state.total === this.state.articlesList.length) {
+          this.setState({
+            isLoadEnd: true
+          });
         }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+        lazyload();
+      } else {
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
@@ -202,13 +202,13 @@ class Articles extends Component {
                 to={`/articleDetail?article_id=${item._id}`}
               >
                 <Icon type="eye" theme="outlined" /> {item.meta.views}
-              </Link>{' '}
+              </Link>{" "}
               <Link
                 target="_blank"
                 to={`/articleDetail?article_id=${item._id}`}
               >
                 <Icon type="message" theme="outlined" /> {item.meta.comments}
-              </Link>{' '}
+              </Link>{" "}
               <Link
                 target="_blank"
                 to={`/articleDetail?article_id=${item._id}`}
@@ -218,7 +218,7 @@ class Articles extends Component {
               <span className="time">
                 {item.create_time
                   ? timestampToTime(item.create_time, true)
-                  : ''}
+                  : ""}
               </span>
             </div>
           </div>
@@ -231,13 +231,13 @@ class Articles extends Component {
         {this.state.tag_id ? (
           <h3 className="left-title">{this.state.tag_name} 相关的文章：</h3>
         ) : (
-          ''
+          ""
         )}
         <ul className="note-list" id="list">
           {list}
         </ul>
-        {this.state.isLoading ? <LoadingCom /> : ''}
-        {this.state.isLoadEnd ? <LoadEndCom /> : ''}
+        {this.state.isLoading ? <LoadingCom /> : ""}
+        {this.state.isLoadEnd ? <LoadEndCom /> : ""}
       </div>
     );
   }

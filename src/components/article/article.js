@@ -1,19 +1,19 @@
-import './index.less';
-import './marked.css';
-import logo from '../../assets/userLogo.jpg';
-import React, { Component } from 'react';
-import Comment from '../comments/comment';
-import CommentList from '../comments/list';
-import { Icon, Avatar, message, Button } from 'antd';
-import https from '../../utils/https';
-import urls from '../../utils/urls';
-import LoadingCom from '../loading/loading';
-import markdown from '../../utils/markdown.js';
+import "./index.less";
+import "./marked.css";
+import logo from "../../assets/userLogo.jpg";
+import React, { Component } from "react";
+import Comment from "../comments/comment";
+import CommentList from "../comments/list";
+import { Icon, Avatar, message, Button } from "antd";
+import https from "../../utils/https";
+import urls from "../../utils/urls";
+import LoadingCom from "../loading/loading";
+import markdown from "../../utils/markdown.js";
 import {
   getQueryStringByName,
   timestampToTime,
-  isMobileOrPc,
-} from '../../utils/utils';
+  isMobileOrPc
+} from "../../utils/utils";
 
 class Articles extends Component {
   constructor(props) {
@@ -23,17 +23,17 @@ class Articles extends Component {
       isLoading: false,
       isSubmitLoading: false,
       list: [],
-      content: '',
+      content: "",
       type: 3, //文章类型 => 1: 普通文章，2: 简历，3: 管理员介绍
       articleDetail: {
-        _id: '',
-        author: 'jamesZhang',
+        _id: "",
+        author: "jamesZhang",
         category: [],
         comments: [],
-        create_time: '',
-        desc: '',
+        create_time: "",
+        desc: "",
         id: 16,
-        img_url: '',
+        img_url: "",
         numbers: 0,
         keyword: [],
         like_users: [],
@@ -41,9 +41,9 @@ class Articles extends Component {
         origin: 0,
         state: 1,
         tags: [],
-        title: '',
-        update_time: '',
-      },
+        title: "",
+        update_time: ""
+      }
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.likeArticle = this.likeArticle.bind(this);
@@ -52,189 +52,186 @@ class Articles extends Component {
     this.refreshArticle = this.refreshArticle.bind(this);
   }
 
-  handleAddComment() {
+  async handleAddComment() {
     if (!this.state.articleDetail._id) {
-      message.error('该文章不存在！', 1);
+      message.error("该文章不存在！", 1);
       return;
     }
     if (!this.state.content) {
-      message.warning('请输入内容!', 1);
+      message.warning("请输入内容!", 1);
       return;
     }
-    let user_id = '';
+    let user_id = "";
     if (window.sessionStorage.userInfo) {
       let userInfo = JSON.parse(window.sessionStorage.userInfo);
       user_id = userInfo._id;
     } else {
-      message.warning('登录才能评论，请先登录！', 1);
+      message.warning("登录才能评论，请先登录！", 1);
       return;
     }
 
     this.setState({
-      isSubmitLoading: true,
+      isSubmitLoading: true
     });
-    https
-      .post(
+    try {
+      const res = await https.post(
         urls.addComment,
         {
           article_id: this.state.articleDetail._id,
           user_id,
-          content: this.state.content,
+          content: this.state.content
         },
-        { withCredentials: true },
-      )
-      .then(res => {
-        // console.log('res:', res);
-        if (res.status === 200 && res.data.code === 0) {
-          message.success(res.data.message, 1);
-          this.setState({
-            isSubmitLoading: false,
-            content: '',
-          });
-          let article_id = getQueryStringByName('article_id');
-          this.handleSearch(article_id);
-        } else {
-          message.error(res.data.message, 1);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        { withCredentials: true }
+      );
+      // console.log('res:', res);
+      if (!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        message.success(res.data.message, 1);
+        this.setState({
+          isSubmitLoading: false,
+          content: ""
+        });
+        let article_id = getQueryStringByName("article_id");
+        this.handleSearch(article_id);
+      } else {
+        message.error(res.data.message, 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   refreshArticle() {
-    let article_id = getQueryStringByName('article_id');
+    let article_id = getQueryStringByName("article_id");
     this.handleSearch(article_id);
   }
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     });
   }
 
-  likeArticle() {
+  async likeArticle() {
     if (!this.state.articleDetail._id) {
-      message.error('该文章不存在！', 1);
+      message.error("该文章不存在！", 1);
       return;
     }
-    let user_id = '';
+    let user_id = "";
     if (window.sessionStorage.userInfo) {
       let userInfo = JSON.parse(window.sessionStorage.userInfo);
       user_id = userInfo._id;
     } else {
-      message.warning('登录才能点赞，请先登录！', 1);
+      message.warning("登录才能点赞，请先登录！", 1);
       return;
     }
     this.setState({
-      isLoading: true,
+      isLoading: true
     });
-    https
-      .post(
+    try {
+      const res = await https.post(
         urls.likeArticle,
         {
           id: this.state.articleDetail._id,
-          user_id,
+          user_id
         },
-        { withCredentials: true },
-      )
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          let articleDetail = this.state.articleDetail;
-          if(articleDetail) {
-            ++articleDetail.meta.likes;
-            this.setState({
-              isLoading: false,
-              articleDetail,
-            });
-            message.success(res.data.message, 1);
-          }
-        } else {
-          message.error(res.data.message, 1);
+        { withCredentials: true }
+      );
+      if (!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        let articleDetail = this.state.articleDetail;
+        if (articleDetail) {
+          ++articleDetail.meta.likes;
+          this.setState({
+            isLoading: false,
+            articleDetail
+          });
+          message.success(res.data.message, 1);
         }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      } else {
+        message.error(res.data.message, 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  handleSearch(article_id) {
+  async handleSearch(article_id) {
     this.setState({
-      isLoading: true,
+      isLoading: true
     });
-    https
-      .post(
+    try {
+      const res = await https.post(
         urls.getArticleDetail,
         {
           id: article_id,
-          type: this.state.type,
+          type: this.state.type
         },
-        { withCredentials: true },
-      )
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          const detail = res.data.data;
-          const article = markdown.marked(res.data.data.content);
-          // console.log("this.articleDetail :", this.articleDetail.tags);
-          article.then(response => {
-            detail.content = response.content;
-            detail.toc = response.toc;
-            // console.log('detail.toc :', detail);
-            this.setState({
-              articleDetail: detail,
-              isLoading: false,
-            });
+        { withCredentials: true }
+      );
+      if (!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        const detail = res.data.data;
+        const article = markdown.marked(res.data.data.content);
+        // console.log("this.articleDetail :", this.articleDetail.tags);
+        article.then(response => {
+          detail.content = response.content;
+          detail.toc = response.toc;
+          // console.log('detail.toc :', detail);
+          this.setState({
+            articleDetail: detail,
+            isLoading: false
           });
-          let keyword = res.data.data.keyword.join(',');
-          let description = res.data.data.desc;
-          let title = res.data.data.title;
-          document.title = title;
-          document.getElementById('keywords').setAttribute('content', keyword);
-          document
-            .getElementById('description')
-            .setAttribute('content', description);
-        } else {
-          message.error(res.data.message, 1);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        });
+        let keyword = res.data.data.keyword.join(",");
+        let description = res.data.data.desc;
+        let title = res.data.data.title;
+        document.title = title;
+        document.getElementById("keywords").setAttribute("content", keyword);
+        document
+          .getElementById("description")
+          .setAttribute("content", description);
+      } else {
+        message.error(res.data.message, 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   componentWillUnmount() {
-    document.title = 'jamesZhang 的博客网站';
+    document.title = "jamesZhang 的博客网站";
     document
-      .getElementById('keywords')
-      .setAttribute('content', 'jamesZhang 的博客网站');
+      .getElementById("keywords")
+      .setAttribute("content", "jamesZhang 的博客网站");
     document
-      .getElementById('description')
+      .getElementById("description")
       .setAttribute(
-        'content',
-        '分享 WEB 全栈开发等相关的技术文章，热点资源，全栈程序员的成长之路。',
+        "content",
+        "分享 WEB 全栈开发等相关的技术文章，热点资源，全栈程序员的成长之路。"
       );
   }
 
   componentWillMount() {
-    if (this.props.location.pathname === '/about') {
+    if (this.props.location.pathname === "/about") {
       this.setState(
         {
-          type: 3, // 文章类型: 3 是博主简介
+          type: 3 // 文章类型: 3 是博主简介
         },
         () => {
-          let article_id = getQueryStringByName('article_id');
+          let article_id = getQueryStringByName("article_id");
           this.handleSearch(article_id);
-        },
+        }
       );
     } else {
-      let article_id = getQueryStringByName('article_id');
+      let article_id = getQueryStringByName("article_id");
       this.handleSearch(article_id);
     }
   }
 
   render() {
-    console.log('isMobile :', this.state.isMobile);
-    let width = this.state.isMobile ? '100%' : '75%';
+    console.log("isMobile :", this.state.isMobile);
+    let width = this.state.isMobile ? "100%" : "75%";
     const list = this.state.articleDetail.tags.map((item, i) => (
       <span key={item.id} className="tag">
         {item.name}
@@ -254,7 +251,7 @@ class Articles extends Component {
                   size={50}
                   icon="user"
                 />
-              </div>{' '}
+              </div>{" "}
               <div className="info">
                 <span className="name">
                   <span>{this.state.articleDetail.author}</span>
@@ -268,9 +265,9 @@ class Articles extends Component {
                     {this.state.articleDetail.create_time
                       ? timestampToTime(
                           this.state.articleDetail.create_time,
-                          true,
+                          true
                         )
-                      : ''}
+                      : ""}
                   </span>
                   <span className="wordage">
                     字数 {this.state.articleDetail.numbers}
@@ -294,7 +291,7 @@ class Articles extends Component {
             </div>
           </div>
 
-          {this.state.isLoading ? <LoadingCom /> : ''}
+          {this.state.isLoading ? <LoadingCom /> : ""}
 
           <div className="content">
             <div
@@ -303,7 +300,7 @@ class Articles extends Component {
               dangerouslySetInnerHTML={{
                 __html: this.state.articleDetail.content
                   ? this.state.articleDetail.content
-                  : null,
+                  : null
               }}
             />
           </div>
@@ -333,16 +330,16 @@ class Articles extends Component {
         </div>
         {!this.state.isMobile ? (
           <div
-            style={{ width: '23%' }}
+            style={{ width: "23%" }}
             className="article-right fr anchor"
             dangerouslySetInnerHTML={{
               __html: this.state.articleDetail.toc
                 ? this.state.articleDetail.toc
-                : null,
+                : null
             }}
           />
         ) : (
-          ''
+          ""
         )}
       </div>
     );

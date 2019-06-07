@@ -1,17 +1,17 @@
-import './index.less';
-import React, { Component } from 'react';
-import { message, Card } from 'antd';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import https from '../../utils/https';
-import urls from '../../utils/urls';
-import LoadingCom from '../loading/loading';
-import LoadEndCom from '../loadEnd/loadEnd';
+import "./index.less";
+import React, { Component } from "react";
+import { message, Card } from "antd";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import https from "../../utils/https";
+import urls from "../../utils/urls";
+import LoadingCom from "../loading/loading";
+import LoadEndCom from "../loadEnd/loadEnd";
 import {
   getScrollTop,
   getDocumentHeight,
   getWindowHeight,
-  timestampToTime,
-} from '../../utils/utils';
+  timestampToTime
+} from "../../utils/utils";
 const { Meta } = Card;
 
 class Project extends Component {
@@ -20,11 +20,11 @@ class Project extends Component {
     this.state = {
       isLoading: false,
       isLoadEnd: false,
-      keyword: '',
+      keyword: "",
       pageNum: 1,
       pageSize: 10,
       total: 0,
-      list: [],
+      list: []
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -41,39 +41,38 @@ class Project extends Component {
     };
   }
 
-  handleSearch = () => {
+  handleSearch = async () => {
     this.setState({
-      isLoading: true,
+      isLoading: true
     });
-    https
-      .get(urls.getProjectList, {
+    try {
+      const res = await https.get(urls.getProjectList, {
         params: {
           keyword: this.state.keyword,
           pageNum: this.state.pageNum,
-          pageSize: this.state.pageSize,
-        },
-      })
-      .then(res => {
-        let num = this.state.pageNum;
-        if (res.status === 200 && res.data.code === 0) {
-          this.setState({
-            list: this.state.list.concat(res.data.data.list),
-            total: res.data.data.count,
-            pageNum: ++num,
-            isLoading: false,
-          });
-          if (this.state.total === this.state.list.length) {
-            this.setState({
-              isLoadEnd: true,
-            });
-          }
-        } else {
-          message.error(res.data.message);
+          pageSize: this.state.pageSize
         }
-      })
-      .catch(err => {
-        console.log(err);
       });
+      if(!res) return;
+      let num = this.state.pageNum;
+      if (res.status === 200 && res.data.code === 0) {
+        this.setState({
+          list: this.state.list.concat(res.data.data.list),
+          total: res.data.data.count,
+          pageNum: ++num,
+          isLoading: false
+        });
+        if (this.state.total === this.state.list.length) {
+          this.setState({
+            isLoadEnd: true
+          });
+        }
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {
@@ -90,14 +89,14 @@ class Project extends Component {
         <a href={item.url} target="_blank" rel="noopener noreferrer">
           <Card
             hoverable
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             cover={<img alt={item.title} src={item.img} />}
           >
             <Meta title={item.title} description={item.content} />
             <span>
-              {item.start_time ? timestampToTime(item.start_time, false) : ''}{' '}
+              {item.start_time ? timestampToTime(item.start_time, false) : ""}{" "}
               --
-              {item.end_time ? timestampToTime(item.end_time, false) : ''}
+              {item.end_time ? timestampToTime(item.end_time, false) : ""}
             </span>
           </Card>
         </a>
@@ -107,8 +106,8 @@ class Project extends Component {
     return (
       <div className="left">
         <ul className="project">{list}</ul>
-        {this.state.isLoading ? <LoadingCom /> : ''}
-        {this.state.isLoadEnd ? <LoadEndCom /> : ''}
+        {this.state.isLoading ? <LoadingCom /> : ""}
+        {this.state.isLoadEnd ? <LoadEndCom /> : ""}
       </div>
     );
   }

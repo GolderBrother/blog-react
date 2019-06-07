@@ -17,8 +17,9 @@ export function saveArticlesList(data) {
  */
 
 export function getArticlesList({ keyword, likes, state, pageNum, pageSize }) {
-  return dispatch => {
-    https
+  return async dispatch => {
+    try {
+      const res = await https
       .get('/api/getArticleList', {
         params: {
           keyword,
@@ -27,17 +28,16 @@ export function getArticlesList({ keyword, likes, state, pageNum, pageSize }) {
           pageNum,
           pageSize,
         },
-      })
-      .then(res => {
-        // console.log('res :', res.data)
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch(saveArticlesList(res.data));
-        } else {
-          // dispatch(listFailure(res.data.msg));
-        }
-      })
-      .catch(err => {
-        console.log(err);
       });
+      // console.log('res :', res.data)
+      if(!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(saveArticlesList(res.data));
+      } else {
+        // dispatch(listFailure(res.data.msg));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

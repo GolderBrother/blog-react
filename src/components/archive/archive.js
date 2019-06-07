@@ -29,12 +29,12 @@ class Archive extends Component {
     this.handleSearch();
   }
 
-  handleSearch = () => {
+  handleSearch = async () => {
     this.setState({
       isLoading: true
     });
-    https
-      .get(urls.getArticleList, {
+    try {
+      const res = await https.get(urls.getArticleList, {
         params: {
           state: this.state.state,
           keyword: this.state.keyword,
@@ -42,28 +42,28 @@ class Archive extends Component {
           pageSize: this.state.pageSize,
           article: this.state.article
         }
-      })
-      .then(res => {
-        let num = this.state.pageNum;
-        if (res.status === 200 && res.data.code === 0) {
-          this.setState({
-            list: this.state.list.concat(res.data.data.list),
-            total: res.data.data.count,
-            pageNum: ++num,
-            isLoading: false
-          });
-          if (this.state.total === this.state.list.length) {
-            this.setState({
-              isLoadEnd: true
-            });
-          }
-        } else {
-          message.error(res.data.message);
-        }
-      })
-      .catch(err => {
-        console.log(err);
       });
+      let num = this.state.pageNum;
+      console.log('getArticleList res:', res);
+      if (!res) return;
+      if (res.status === 200 && res.data.code === 0) {
+        this.setState({
+          list: this.state.list.concat(res.data.data.list),
+          total: res.data.data.count,
+          pageNum: ++num,
+          isLoading: false
+        });
+        if (this.state.total === this.state.list.length) {
+          this.setState({
+            isLoadEnd: true
+          });
+        }
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {

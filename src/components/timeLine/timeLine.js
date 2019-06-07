@@ -1,16 +1,16 @@
-import './index.less';
-import React, { Component } from 'react';
-import { Timeline, Icon, message } from 'antd';
-import https from '../../utils/https';
-import urls from '../../utils/urls';
-import LoadingCom from '../loading/loading';
-import LoadEndCom from '../loadEnd/loadEnd';
+import "./index.less";
+import React, { Component } from "react";
+import { Timeline, Icon, message } from "antd";
+import https from "../../utils/https";
+import urls from "../../utils/urls";
+import LoadingCom from "../loading/loading";
+import LoadEndCom from "../loadEnd/loadEnd";
 import {
   getScrollTop,
   getDocumentHeight,
   getWindowHeight,
-  timestampToTime,
-} from '../../utils/utils';
+  timestampToTime
+} from "../../utils/utils";
 
 class TimeLineCustom extends Component {
   constructor(props) {
@@ -18,11 +18,11 @@ class TimeLineCustom extends Component {
     this.state = {
       isLoading: false,
       isLoadEnd: false,
-      keyword: '',
+      keyword: "",
       pageNum: 1,
       pageSize: 10,
       total: 0,
-      list: [],
+      list: []
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -39,39 +39,41 @@ class TimeLineCustom extends Component {
     };
   }
 
-  handleSearch = () => {
+  handleSearch = async () => {
     this.setState({
-      isLoading: true,
+      isLoading: true
     });
-    https
-      .get(urls.getTimeAxisList, {
+    try {
+      const res = await https.get(urls.getTimeAxisList, {
         params: {
           keyword: this.state.keyword,
           pageNum: this.state.pageNum,
-          pageSize: this.state.pageSize,
-        },
-      })
-      .then(res => {
-        let num = this.state.pageNum;
-        if (res.status === 200 && res.data.code === 0) {
-          this.setState({
-            list: this.state.list.concat(res.data.data.list),
-            total: res.data.data.count,
-            pageNum: ++num,
-            isLoading: false,
-          });
-          if (this.state.total === this.state.list.length) {
-            this.setState({
-              isLoadEnd: true,
-            });
-          }
-        } else {
-          message.error(res.data.message);
+          pageSize: this.state.pageSize
         }
-      })
-      .catch(err => {
-        console.log(err);
       });
+      if (!res) return;
+      let num = this.state.pageNum;
+      if (res.status === 200 && res.data.code === 0) {
+        this.setState({
+          list: this.state.list.concat(res.data.data.list),
+          total: res.data.data.count,
+          pageNum: ++num,
+          isLoading: false
+        });
+        if (this.state.total === this.state.list.length) {
+          this.setState({
+            isLoadEnd: true
+          });
+        }
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      this.setState({
+        isLoading: false
+      });
+      console.log(error);
+    }
   };
 
   render() {
@@ -79,12 +81,12 @@ class TimeLineCustom extends Component {
     const list = this.state.list.map((item, i) => (
       <Timeline.Item
         key={item._id}
-        color={item.state === 1 ? 'green' : item.state === 3 ? 'red' : ''}
+        color={item.state === 1 ? "green" : item.state === 3 ? "red" : ""}
         dot={
           item.state === 2 ? (
-            <Icon type="clock-circle-o" style={{ fontSize: '16px' }} />
+            <Icon type="clock-circle-o" style={{ fontSize: "16px" }} />
           ) : (
-            ''
+            ""
           )
         }
       >
@@ -92,11 +94,11 @@ class TimeLineCustom extends Component {
         <p>{item.content}</p>
         <p>
           <span>
-            {item.start_time ? timestampToTime(item.start_time, false) : ''}--
+            {item.start_time ? timestampToTime(item.start_time, false) : ""}--
           </span>
           <span>
-            {' '}
-            {item.end_time ? timestampToTime(item.end_time, false) : ''}
+            {" "}
+            {item.end_time ? timestampToTime(item.end_time, false) : ""}
           </span>
         </p>
       </Timeline.Item>
@@ -105,8 +107,8 @@ class TimeLineCustom extends Component {
     return (
       <div className="time-line">
         <Timeline mode="alternate">{list}</Timeline>
-        {this.state.isLoading ? <LoadingCom /> : ''}
-        {this.state.isLoadEnd ? <LoadEndCom /> : ''}
+        {this.state.isLoading ? <LoadingCom /> : ""}
+        {this.state.isLoadEnd ? <LoadEndCom /> : ""}
       </div>
     );
   }
