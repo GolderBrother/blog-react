@@ -5,7 +5,7 @@ const loadingComponent = ({ error, pastDelay }) => {
   if (error) {
     return <div>Error!</div>;
   } else if (pastDelay) {
-    // return <div>Loading...</div>;
+    // return <div>Loading@.</div>;
     return <div />;
   } else {
     return null;
@@ -18,7 +18,7 @@ let config = [
     path: '/',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/home/index.js'),
+      loader: () => import('@/components/home/index.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -28,17 +28,17 @@ let config = [
     path: '/articles',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/articles/articles.js'),
+      loader: () => import('@/components/articles/articles.js'),
       loading: loadingComponent,
       delay: 300,
     }),
   },
   {
-    name: 'hot',
-    path: '/hot',
+    name: 'article',
+    path: '/article',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/articles/articles.js'),
+      loader: () => import('@/components/article/article.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -48,7 +48,7 @@ let config = [
     path: '/archive',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/archive/archive.js'),
+      loader: () => import('@/components/archive/archive.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -58,7 +58,7 @@ let config = [
     path: '/timeLine',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/timeLine/timeLine.js'),
+      loader: () => import('@/components/timeLine/timeLine.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -68,7 +68,7 @@ let config = [
     path: '/message',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/message/message.js'),
+      loader: () => import('@/components/message/message.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -78,7 +78,7 @@ let config = [
     path: '/about',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/article/article.js'),
+      loader: () => import('@/components/article/article.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -88,7 +88,7 @@ let config = [
     path: '/articleDetail',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/article/article.js'),
+      loader: () => import('@/components/article/article.js'),
       loading: loadingComponent,
       delay: 300,
     }),
@@ -98,11 +98,21 @@ let config = [
     path: '/project',
     exact: true,
     component: Loadable({
-      loader: () => import('../components/project/project.js'),
+      loader: () => import('@/components/project/project.js'),
       loading: loadingComponent,
       delay: 300,
     }),
   },
+  {
+    name: '404',
+    path: '/404',
+    exact: true,
+    component: Loadable({
+      loader: () => import('@/components/NotFound'),
+      loading: loadingComponent,
+      delay: 300,
+    }),
+  }
 ];
 
 export default config;

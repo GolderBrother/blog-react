@@ -1,9 +1,9 @@
 import './index.less';
-import logo from '../../assets/userLogo.jpg';
-// import logo from '@assets/userLogo.jpg';
+import logo from '@/assets/userLogo.jpg';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 
+@withRouter
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -1261,7 +1261,13 @@ class Index extends Component {
     })(window, 'equestAnimationFrame');
   }
 
+  routerTo(e = window.event, path){
+    e.preventDefault();
+    this.props.history.push(path);
+  }
+
   render() {
+    const {history} = this.props;
     return (
       <div className="home">
         <canvas id="sakura" />
@@ -1270,15 +1276,25 @@ class Index extends Component {
             <Link className="link" to={`/home`}>
               <img className="home-logo" src={logo} alt="biaochenxuying logo" />
             </Link>
+            {/* <a className="link" onClick={(e) => {this.routerTo(e, '/home')}}>
+              <img className="home-logo" src={logo} alt="biaochenxuying logo" />
+            </a> */}
           </div>
           <div className="home-body">
             <div className="list">
+              {/* 这边路由跳转有问题：会自动重定向到404页面 */}
               <Link className="link" to={`/articles`}>
                 文章
               </Link>
+              {/* <a className="link" to={null} onClick={(e) => {this.routerTo(e, '/articles')}}>
+              文章
+              </a> */}
               <Link className="link" to={`/project`}>
                 项目
               </Link>
+               {/* <a className="link" to={null} onClick={(e) => {this.routerTo(e, '/project')}}>
+                项目
+              </a> */}
               <a
                 target="_blank"
                 rel="noopener noreferrer"

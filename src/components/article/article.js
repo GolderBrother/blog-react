@@ -1,14 +1,14 @@
 import "./index.less";
 import "./marked.css";
-import logo from "../../assets/userLogo.jpg";
+import logo from "@/assets/userLogo.jpg";
 import React, { Component } from "react";
 import Comment from "../comments/comment";
 import CommentList from "../comments/list";
 import { Icon, Avatar, message, Button } from "antd";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
 import LoadingCom from "../loading/loading";
-import markdown from "../../utils/markdown.js";
+import markdown from "@/utils/markdown.js";
 import {
   getQueryStringByName,
   timestampToTime,
@@ -137,7 +137,12 @@ class Articles extends Component {
         },
         { withCredentials: true }
       );
-      if (!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       if (res.status === 200 && res.data.code === 0) {
         let articleDetail = this.state.articleDetail;
         if (articleDetail) {
@@ -153,6 +158,9 @@ class Articles extends Component {
       }
     } catch (error) {
       console.log(error);
+      this.setState({
+        isLoading: false
+      });
     }
   }
 
@@ -169,7 +177,12 @@ class Articles extends Component {
         },
         { withCredentials: true }
       );
-      if (!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       if (res.status === 200 && res.data.code === 0) {
         const detail = res.data.data;
         const article = markdown.marked(res.data.data.content);

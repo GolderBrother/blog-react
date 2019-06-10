@@ -1,5 +1,5 @@
 import "./index.less";
-import logo from "../../assets/logo.jpg";
+import logo from "@/assets/logo.jpg";
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -16,16 +16,32 @@ import {
 } from "antd";
 import Register from "../register/register";
 import Login from "../login/login";
-import { isMobileOrPc, getQueryStringByName } from "../../utils/utils";
+import { isMobileOrPc, getQueryStringByName } from "@/utils/utils";
 
-import https from "../../utils/https";
-import urls from "../../utils/urls";
-import { loginSuccess, loginFailure } from "../../store/actions/user";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
+import { loginSuccess, loginFailure } from "@/store/actions/user";
 import LoadingCom from "../loading/loading";
 
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+
+const menuList =  [{
+  path: "/", type: "home", title: "首页"
+},{
+  path: "/articles", type: "fire", title: "文章"
+},{
+  path: "/archive", type: "project", title: "归档"
+},{
+  path: "/project", type: "database", title: "项目"
+},{
+  path: "/timeLine", type: "hourglass", title: "历程"
+},{
+  path: "/message", type: "message", title: "留言"
+},{
+  path: "/about", type: "user", title: "关于"
+}];
 
 @connect(
   state => state.user,
@@ -98,32 +114,32 @@ class Nav extends Component {
     let key = "9";
     let navTitle = "";
     if (name === "/") {
-      key = "9";
+      key = "0";
       navTitle = "首页";
     } else if (name === "/articles") {
       key = "1";
       navTitle = "文章";
-    } else if (name === "/hot") {
+    } else if (name === "/archive") {
       key = "2";
-      navTitle = "热门";
-    } else if (name === "/timeLine") {
+      navTitle = "归档";
+    } else if (name === "/project") {
       key = "3";
+      navTitle = "项目";
+    } else if (name === "/timeLine") {
+      key = "4";
       navTitle = "历程";
     } else if (name === "/message") {
-      key = "4";
+      key = "5";
       navTitle = "留言";
     } else if (name === "/about") {
-      key = "5";
-      navTitle = "关于我";
-    } else if (name === "/articleDetail") {
       key = "6";
-      navTitle = "文章详情";
-    } else if (name === "/project") {
-      key = "7";
-      navTitle = "项目";
-    } else if (name === "/archive") {
-      key = "8";
-      navTitle = "归档";
+      navTitle = "关于我";
+    // } else if (name === "/articleDetail") {
+    //   key = "6";
+    //   navTitle = "文章详情";
+    // } else if (name === "/archive") {
+    //   key = "8";
+    //   navTitle = "归档";
     }
     this.setState({
       navTitle,
@@ -182,7 +198,7 @@ class Nav extends Component {
   }
 
   handleMenu = e => {
-    // console.log('click ', e);
+    console.log('click ', e);
     this.setState({
       menuCurrent: e.key
     });
@@ -247,7 +263,7 @@ class Nav extends Component {
           >
             <Row className="container">
               <Col style={{ width: "25%", float: "left", lineHeight: "64px" }}>
-                {/* <a href="http://biaochenxuying.cn/main.html"> */}
+                {/* <a href="http://golderBrother.cn/main.html"> */}
                 <a href="/">
                   <div className="logo">
                     <img src={logo} alt="" />
@@ -289,7 +305,7 @@ class Nav extends Component {
           >
             <Row className="container">
               <Col style={{ width: "120px", float: "left" }}>
-                <a href="http://biaochenxuying.cn/main.html">
+                <a href="/">
                   <div className="logo ">
                     <img src={logo} alt="" />
                   </div>
@@ -304,54 +320,18 @@ class Nav extends Component {
                   selectedKeys={[this.state.menuCurrent]}
                   style={{ lineHeight: "64px", borderBottom: "none" }}
                 >
-                  <Menu.Item key="9">
-                    <Link to="/">
-                      <Icon type="home" theme="outlined" />
-                      首页
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="1">
-                    <Link to="/articles">
-                      <Icon type="ordered-list" theme="outlined" />
-                      文章
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="2">
-                    <Link to="/hot">
-                      <Icon type="fire" theme="outlined" />
-                      热门
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="8">
-                    <Link to="/archive">
-                      <Icon type="project" theme="outlined" />
-                      归档
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="7">
-                    <Link to="/project">
-                      <Icon type="database" theme="outlined" />
-                      项目
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="3">
-                    <Link to="/timeLine">
-                      <Icon type="hourglass" theme="outlined" />
-                      历程
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="4">
-                    <Link to="/message">
-                      <Icon type="message" theme="outlined" />
-                      留言
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="5">
-                    <Link to="/about">
-                      <Icon type="user" theme="outlined" />
-                      关于
-                    </Link>
-                  </Menu.Item>
+                  {
+                    menuList && menuList.map((menu, index) => (
+                      (
+                        <Menu.Item key={index} selectedKeys={true}>
+                          <Link to={menu.path}> 
+                            <Icon type={menu.type} theme="outlined" />
+                            {menu.title}
+                          </Link>
+                        </Menu.Item>
+                      )
+                    ))
+                  }
                 </Menu>
               </Col>
               <Col
@@ -431,7 +411,7 @@ class Nav extends Component {
               </Link>
             </p>
             <p onClick={this.onClose}>
-              <Link to="/hot">
+              <Link to="/article">
                 <Icon type="fire" onClick={this.showLoginModal} /> 热门
               </Link>
             </p>

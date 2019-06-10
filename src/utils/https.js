@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { message } from 'antd';
 // 创建axios实例
 let service = null;
 if (process.env.NODE_ENV === 'development') {
@@ -23,8 +23,11 @@ service.interceptors.request.use(
   },
   error => {
     // Do something with request error
-    console.error('error:', error); // for debug
-    Promise.reject(error);
+    console.error('error1: %o', error); // for debug
+    message.error(error.message, 1);
+    // 请求统一拦截
+    return Promise.resolve();
+    // return Promise.reject(error);
   },
 );
 
@@ -34,8 +37,13 @@ service.interceptors.response.use(
     return response;
   },
   error => {
-    console.error('error:' + error); // for debug
-    return Promise.reject(error);
+    console.error('error2: %o', error); // for debug
+    if(error.message.includes('504')) {
+      error.message = '网关超时，请检查服务器连接！'
+    }
+    message.error(error.message, 1);
+    return Promise.resolve();
+    // return Promise.reject(error);
   },
 );
 

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Modal, Input, Icon, message, Button } from "antd";
 import { connect } from "react-redux";
-import { registerSuccess, registerFailue } from "../../store/actions/user";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
-import config from "../../utils/config";
+import { registerSuccess, registerFailue } from "@/store/actions/user";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
+import config from "@/utils/config";
 // TODO：做成加盐加密
-import { MD5_SUFFIX, md5 } from "../../utils/utils";
+import { MD5_SUFFIX, md5 } from "@/utils/utils";
 
 @connect(
   state => state.user,

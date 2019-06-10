@@ -1,11 +1,11 @@
 import "./index.less";
-import logo from "../../assets/userLogo.jpg";
-import BiaoChenXuYing from "../../assets/BiaoChenXuYing.png";
+import logo from "@/assets/userLogo.jpg";
+import BiaoChenXuYing from "@/assets/BiaoChenXuYing.png";
 import React, { Component } from "react";
 import { Avatar, message } from "antd";
 import { Link } from "react-router-dom";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
 
 class SliderRight extends Component {
   constructor(props) {
@@ -129,7 +129,7 @@ class SliderRight extends Component {
           <div className="title">标签云</div>
           {list}
         </div>
-        <div className="introduce">
+        {/* <div className="introduce">
           <div className="title">本站公众号</div>
           <div className="content">
             分享 WEB 全栈开发等相关的技术文章，热点资源
@@ -141,7 +141,7 @@ class SliderRight extends Component {
               alt="公众号"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

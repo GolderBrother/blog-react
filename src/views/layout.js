@@ -2,10 +2,10 @@ import './index.less';
 import './mobile.less';
 import React, { Component } from 'react';
 import { Layout, BackTop } from 'antd';
-import SliderRight from '../components/slider/index';
-import Nav from '../components/nav/nav';
-import Index from '../components/home/index';
-import { isMobileOrPc } from '../utils/utils';
+import SliderRight from '@/components/slider/index';
+import Nav from '@/components/nav/nav';
+import Index from '@/components/home/index';
+import { isMobileOrPc } from '@/utils/utils';
 const { Content, Footer, Sider } = Layout;
 
 class Layouts extends Component {

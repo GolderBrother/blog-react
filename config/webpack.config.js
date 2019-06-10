@@ -44,6 +44,10 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
 
+function pathResolve(dir) {
+  return path.join(__dirname, '../', dir);
+}
+
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
@@ -269,7 +273,8 @@ module.exports = function(webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
-        '@assets': '../src/assets'
+        '@': pathResolve('src'),
+        '@components': pathResolve('components')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

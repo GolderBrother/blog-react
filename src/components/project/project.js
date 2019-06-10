@@ -2,8 +2,8 @@ import "./index.less";
 import React, { Component } from "react";
 import { message, Card } from "antd";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
 import LoadingCom from "../loading/loading";
 import LoadEndCom from "../loadEnd/loadEnd";
 import {
@@ -11,7 +11,7 @@ import {
   getDocumentHeight,
   getWindowHeight,
   timestampToTime
-} from "../../utils/utils";
+} from "@/utils/utils";
 const { Meta } = Card;
 
 class Project extends Component {
@@ -53,7 +53,12 @@ class Project extends Component {
           pageSize: this.state.pageSize
         }
       });
-      if(!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       let num = this.state.pageNum;
       if (res.status === 200 && res.data.code === 0) {
         this.setState({
@@ -72,6 +77,9 @@ class Project extends Component {
       }
     } catch (error) {
       console.error(error);
+      this.setState({
+        isLoading: false
+      });
     }
   };
 

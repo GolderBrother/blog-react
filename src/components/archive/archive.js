@@ -2,9 +2,9 @@ import "./index.less";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Timeline, Icon, message } from "antd";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
-import { timestampToTime } from "../../utils/utils";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
+import { timestampToTime } from "@/utils/utils";
 import LoadingCom from "../loading/loading";
 
 class Archive extends Component {
@@ -24,7 +24,6 @@ class Archive extends Component {
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
-
   componentDidMount() {
     this.handleSearch();
   }
@@ -44,8 +43,12 @@ class Archive extends Component {
         }
       });
       let num = this.state.pageNum;
-      console.log('getArticleList res:', res);
-      if (!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       if (res.status === 200 && res.data.code === 0) {
         this.setState({
           list: this.state.list.concat(res.data.data.list),
@@ -63,6 +66,9 @@ class Archive extends Component {
       }
     } catch (error) {
       console.log(error);
+      this.setState({
+        isLoading: false
+      });
     }
   };
 

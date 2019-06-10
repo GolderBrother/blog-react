@@ -1,14 +1,14 @@
 import "./index.less";
 import React, { Component } from "react";
-import { Icon } from "antd";
+import { Icon, message } from "antd";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
 import LoadingCom from "../loading/loading";
 import LoadEndCom from "../loadEnd/loadEnd";
-import bg from "../../assets/bg.jpg";
+import bg from "@/assets/bg.jpg";
 import {
   throttle,
   getScrollTop,
@@ -16,9 +16,9 @@ import {
   getWindowHeight,
   getQueryStringByName,
   timestampToTime
-} from "../../utils/utils";
+} from "@/utils/utils";
 /*actions*/
-import { saveArticlesList } from "../../store/actions/articles";
+import { saveArticlesList } from "@/store/actions/articles";
 
 // 获取可视区域的高度
 const viewHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -144,9 +144,13 @@ class Articles extends Component {
         },
         { withCredentials: true }
       );
-      console.log('getArticleList res:', res);
       let num = this.state.pageNum;
-      if (!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       if (res.status === 200 && res.data.code === 0) {
         this.setState(preState => ({
           articlesList: [...preState.articlesList, ...res.data.data.list],
@@ -160,10 +164,12 @@ class Articles extends Component {
           });
         }
         lazyload();
-      } else {
       }
     } catch (error) {
       console.error(error);
+      this.setState({
+        isLoading: false
+      });
     }
   }
 

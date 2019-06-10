@@ -12,6 +12,11 @@
     .home-logo {
       width: 220px;
       border-radius: 50%;
+      animation: mylogo 3s;
+      -moz-animation: mylogo 3s; /* Firefox */
+      -webkit-animation: mylogo 3s; /* Safari and Chrome */
+      -o-animation: mylogo 3s; /* Opera */
+      animation-iteration-count: infinite;
     }
     .home-header {
       .link {
@@ -36,5 +41,20 @@
       // color: #960026;
       color: #fff;
     }
+  }
+}
+
+@keyframes mylogo {
+  0% {
+    transform: rotate(0deg) scale(0.8, 0.8);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(0deg) scale(1, 1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(0deg) scale(0.8, 0.8);
+    opacity: 1;
   }
 }

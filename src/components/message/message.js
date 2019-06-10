@@ -1,8 +1,8 @@
 import "./index.less";
 import React, { Component } from "react";
 import { Input, Button, Icon, message } from "antd";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
 
 class TimeLineCustom extends Component {
   constructor(props) {
@@ -33,8 +33,12 @@ class TimeLineCustom extends Component {
         },
         { withCredentials: true }
       );
-      console.log('addMessage res:', res);
-      if(!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       if (res.status === 200 && res.data.code === 0) {
         this.setState({
           isLoading: false

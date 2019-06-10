@@ -1,8 +1,8 @@
 import "./index.less";
 import React, { Component } from "react";
 import { Timeline, Icon, message } from "antd";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
 import LoadingCom from "../loading/loading";
 import LoadEndCom from "../loadEnd/loadEnd";
 import {
@@ -10,7 +10,7 @@ import {
   getDocumentHeight,
   getWindowHeight,
   timestampToTime
-} from "../../utils/utils";
+} from "@/utils/utils";
 
 class TimeLineCustom extends Component {
   constructor(props) {
@@ -51,7 +51,12 @@ class TimeLineCustom extends Component {
           pageSize: this.state.pageSize
         }
       });
-      if (!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       let num = this.state.pageNum;
       if (res.status === 200 && res.data.code === 0) {
         this.setState({
@@ -69,10 +74,10 @@ class TimeLineCustom extends Component {
         message.error(res.data.message);
       }
     } catch (error) {
+      console.log(error);
       this.setState({
         isLoading: false
       });
-      console.log(error);
     }
   };
 

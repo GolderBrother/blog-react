@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Modal, Input, Icon, message, Button } from "antd";
 import { connect } from "react-redux";
-import https from "../../utils/https";
-import urls from "../../utils/urls";
-import { MD5_SUFFIX, md5 } from "../../utils/utils";
-import config from "../../utils/config";
-import { loginSuccess, loginFailure } from "../../store/actions/user";
+import https from "@/utils/https";
+import urls from "@/utils/urls";
+import { MD5_SUFFIX, md5 } from "@/utils/utils";
+import config from "@/utils/config";
+import { loginSuccess, loginFailure } from "@/store/actions/user";
 
 @connect(
   state => state.user,
