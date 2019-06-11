@@ -84,7 +84,12 @@ class Articles extends Component {
         { withCredentials: true }
       );
       // console.log('res:', res);
-      if (!res) return;
+      if (!res) {
+        this.setState({
+          isLoading: false
+        });
+        return;
+      };
       if (res.status === 200 && res.data.code === 0) {
         message.success(res.data.message, 1);
         this.setState({
@@ -98,6 +103,9 @@ class Articles extends Component {
       }
     } catch (error) {
       console.log(error);
+      this.setState({
+        isLoading: false
+      });
     }
   }
 
