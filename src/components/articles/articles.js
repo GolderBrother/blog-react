@@ -1,6 +1,7 @@
 import "./index.less";
 import React, { Component } from "react";
-import { Icon, message } from "antd";
+import { Icon } from "antd";
+// import { message } from "antd";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";

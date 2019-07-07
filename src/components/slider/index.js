@@ -1,6 +1,6 @@
 import "./index.less";
 import logo from "@/assets/userLogo.jpg";
-import BiaoChenXuYing from "@/assets/BiaoChenXuYing.png";
+// import BiaoChenXuYing from "@/assets/BiaoChenXuYing.png";
 import React, { Component } from "react";
 import { Avatar, message } from "antd";
 import { Link } from "react-router-dom";

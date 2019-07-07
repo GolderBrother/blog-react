@@ -8,7 +8,7 @@
     font-size: 20px;
     text-align: center;
     // color: white;
-    padding-top: 12%;
+    padding-top: .1rem;
     .home-logo {
       width: 220px;
       border-radius: 50%;
@@ -20,12 +20,16 @@
     }
     .home-header {
       .link {
-        display: block;
+        display: inline-block;
       }
     }
     .home-body {
-      padding-top: 20px;
+      margin-top: 1rem;
+      padding-top: .1rem;
       .list {
+        position: relative;
+        margin-top: .1rem;
+        z-index: 1000;
         .link {
           display: inline-block;
           padding: 20px;
@@ -58,3 +62,39 @@
     opacity: 1;
   }
 }
+
+
+/* 背景动画css */
+svg {
+  display: block;
+  margin: 0 auto;
+}
+
+path {
+  fill: none;
+  stroke: #f7b500;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#particule-wrapper {
+  position: relative;
+  width: 30%;
+  max-width: 500px;
+  margin: 20px auto;
+  transform: translateX(20%);
+  
+  .particule {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: .1rem;
+    height: .1rem;
+    margin: -.5rem 0 0 -.5rem;
+    border: 1px solid currentColor;
+    transform: scale(0);
+  }
+}
+
+

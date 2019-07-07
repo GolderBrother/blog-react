@@ -12,7 +12,7 @@ const store = configureStore()
 const render = () => {
 	ReactDOM.render(
 		<Provider store={store}>
-			<App history={history} />
+			<App key={Math.random().toString().substr(2)} history={history} />
 		</Provider>,
 		document.getElementById('root'),
 	);

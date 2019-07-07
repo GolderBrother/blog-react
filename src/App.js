@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ConnectedRouter } from 'connected-react-router'
-import { Route, Switch, Redirect, HashRouter } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
+// import { Redirect, HashRouter, BrowserRouter } from 'react-router-dom'
 import routers from './router/index.js';
 import Layouts from './views/layout';
 
@@ -9,21 +10,26 @@ const App = ({ history }) => {
   return (
     <ConnectedRouter history={history}>
       {/* HashRouter： http://localhost:3002/404 -> http://localhost:3002/#/404 */}
-      {/* <HashRouter> */}
+      {/* <BrowserRouter> */}
         <Switch>
           <Layouts>
             {routers.map((r, key) => (
-              <Route
-                component={r.component}
-                exact={!!r.exact}
-                key={key}
-                path={r.path}
-              />
+              <React.Fragment>
+                <Route
+                  component={r.component}
+                  exact={!!r.exact}
+                  // exact
+                  key={key + r}
+                  path={r.path}
+                />
+                {/* 这边有问题，Link方式路由跳转都会调到404页面 */}
+                {/* <Redirect to="/404" /> */}
+                {/* <Route render={() => <Redirect to="/404" />} /> */}
+              </React.Fragment>
             ))}
-            {/* <Redirect from="*" to="/404" /> */}
           </Layouts>
         </Switch>
-      {/* </HashRouter> */}
+      {/* </BrowserRouter> */}
     </ConnectedRouter>
   )
 }

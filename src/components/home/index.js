@@ -1267,7 +1267,7 @@ class Index extends Component {
   }
 
   render() {
-    const {history} = this.props;
+    // const {history} = this.props;
     return (
       <div className="home">
         <canvas id="sakura" />
@@ -1281,6 +1281,7 @@ class Index extends Component {
             </a> */}
           </div>
           <div className="home-body">
+            <div id="particule-wrapper"></div>
             <div className="list">
               {/* 这边路由跳转有问题：会自动重定向到404页面 */}
               <Link className="link" to={`/articles`}>
