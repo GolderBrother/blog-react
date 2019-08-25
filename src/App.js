@@ -14,7 +14,7 @@ const App = ({ history }) => {
         <Switch>
           <Layouts>
             {routers.map((r, key) => (
-              <React.Fragment>
+              <React.Fragment key={key + r}>
                 <Route
                   component={r.component}
                   exact={!!r.exact}

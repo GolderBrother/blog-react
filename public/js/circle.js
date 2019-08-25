@@ -16,7 +16,7 @@ window.onload = function () {
       fragment.appendChild(el);
     }
     // document.body.appendChild(fragment);
-    document.querySelector("#particule-wrapper").appendChild(fragment);
+    document.querySelector("#particule-wrapper") && document.querySelector("#particule-wrapper").appendChild(fragment);
   })();
 
   var animate = function (el, i) {

@@ -445,7 +445,7 @@ class Nav extends Component {
               <div onClick={this.handleLogout}>
                 <p>{userInfo.name}</p>
                 <p>
-                  <Icon type="logout" /> 退出{" "}
+                  <Icon type="logout" /> 退出
                 </p>
               </div>
             ) : (
@@ -454,7 +454,7 @@ class Nav extends Component {
                   <Icon type="login" /> 登录
                 </p>
                 <p onClick={this.showRegisterModal}>
-                  <Icon type="logout" /> 注册{" "}
+                  <Icon type="logout" /> 注册
                 </p>
               </div>
             )}
