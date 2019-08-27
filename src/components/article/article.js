@@ -27,7 +27,7 @@ class Articles extends Component {
       type: 3, //文章类型 => 1: 普通文章，2: 简历，3: 管理员介绍
       articleDetail: {
         _id: "",
-        author: "jamesZhang",
+        author: "GolderBrother",
         category: [],
         comments: [],
         create_time: "",
@@ -43,7 +43,10 @@ class Articles extends Component {
         tags: [],
         title: "",
         update_time: ""
-      }
+      },
+      cacheTime: 0, // 缓存时间
+      times: 0, // 评论次数
+      likeTimes: 0, // 点赞次数
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.likeArticle = this.likeArticle.bind(this);
@@ -55,6 +58,17 @@ class Articles extends Component {
   async handleAddComment() {
     if (!this.state.articleDetail._id) {
       message.error("该文章不存在！", 1);
+      return;
+    }
+    if (this.state.times > 10) {
+      message.warning('您今天评论的次数已经用完，明天再来评论吧！', 1);
+      return;
+    }
+
+    let now = new Date();
+    let nowTime = now.getTime();
+    if (nowTime - this.state.cacheTime < 60000) {
+      message.warning('您评论太过频繁，1 分钟后再来评论吧！', 1);
       return;
     }
     if (!this.state.content) {
@@ -92,7 +106,10 @@ class Articles extends Component {
       };
       if (res.status === 200 && res.data.code === 0) {
         message.success(res.data.message, 1);
+        const times = this.state.times + 1;
         this.setState({
+          cacheTime: nowTime,
+          times: times,
           isSubmitLoading: false,
           content: ""
         });
@@ -125,6 +142,10 @@ class Articles extends Component {
       message.error("该文章不存在！", 1);
       return;
     }
+    if (this.state.likeTimes > 0) {
+      message.warning('您已经点过赞了！悠着点吧！', 1);
+      return;
+    }
     let user_id = "";
     if (window.sessionStorage.userInfo) {
       let userInfo = JSON.parse(window.sessionStorage.userInfo);
@@ -155,7 +176,9 @@ class Articles extends Component {
         let articleDetail = this.state.articleDetail;
         if (articleDetail) {
           ++articleDetail.meta.likes;
+          const likeTimes = this.state.likeTimes + 1
           this.setState({
+            likeTimes,
             isLoading: false,
             articleDetail
           });
@@ -221,10 +244,10 @@ class Articles extends Component {
   }
 
   componentWillUnmount() {
-    document.title = "jamesZhang 的博客网站";
+    document.title = "GolderBrother 的博客网站";
     document
       .getElementById("keywords")
-      .setAttribute("content", "jamesZhang 的博客网站");
+      .setAttribute("content", "GolderBrother 的博客网站");
     document
       .getElementById("description")
       .setAttribute(

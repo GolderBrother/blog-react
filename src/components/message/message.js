@@ -12,13 +12,26 @@ class TimeLineCustom extends Component {
       email: "",
       phone: "",
       name: "",
-      content: ""
+      content: "",
+      cacheTime: 0, // 缓存时间
+      times: 0, // 评论次数
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOk = this.handleOk.bind(this);
   }
 
   async addMessage({ email, name, phone, content }) {
+    if (this.state.times > 3) {
+      message.warning('您今天留言的次数已经用完，明天再来留言吧！', 1);
+      return;
+    }
+
+    let now = new Date();
+    let nowTime = now.getTime();
+    if (nowTime - this.state.cacheTime < 60000) {
+      message.warning('您留言太过频繁，1 分钟后再来留言吧！', 1);
+      return;
+    }
     this.setState({
       isLoading: true
     });
@@ -44,7 +57,10 @@ class TimeLineCustom extends Component {
           isLoading: false
         });
         message.success("您的留言，已保存到后台，管理员会尽快回复您的！", 1);
+        const times = this.state.times + 1;
         this.setState({
+          times,
+          cacheTime: nowTime,
           email: "",
           name: "",
           phone: "",

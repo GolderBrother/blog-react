@@ -36,6 +36,8 @@ class CommentList extends Component {
         title: '',
         update_time: '',
       },
+      cacheTime: 0, // 缓存时间
+      times: 0, // 评论次数
     };
     this.handleAddOtherComment = this.handleAddOtherComment.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -82,11 +84,22 @@ class CommentList extends Component {
 
   handleAddOtherComment() {
     if (!this.state.comment_id) {
-      message.warning('该父评论不存在！');
+      message.warning('该评论不存在！');
       return;
     }
     if (!this.state.content) {
       message.warning('评论内容不能为空!');
+      return;
+    }
+    if (this.state.times > 10) {
+      message.warning('您今天评论的次数已经用完，明天再来评论吧！', 1);
+      return;
+    }
+
+    let now = new Date();
+    let nowTime = now.getTime();
+    if (nowTime - this.state.cacheTime < 60000) {
+      message.warning('您评论太过频繁，1 分钟后再来评论吧！', 1);
       return;
     }
     let user_id = '';
@@ -114,7 +127,10 @@ class CommentList extends Component {
       )
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
+          const times = this.state.times + 1
           this.setState({
+            times,
+            cacheTime: nowTime,
             content: '',
             visible: false,
             isLoading: false,

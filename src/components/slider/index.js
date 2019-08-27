@@ -109,7 +109,7 @@ class SliderRight extends Component {
     return (
       <div className="right">
         <Avatar className="right-logo" src={logo} size={130} icon="user" />
-        <div className="title">JamesZhang</div>
+        <div className="title">GolderBrother</div>
         <div className="right-content">
           {/* <div className="item">
 						<div className="num">123</div>粉丝<Icon type="right" theme="outlined" />
