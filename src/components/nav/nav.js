@@ -198,7 +198,6 @@ class Nav extends Component {
   }
 
   handleMenu = e => {
-    console.log('click ', e);
     this.setState({
       menuCurrent: e.key
     });

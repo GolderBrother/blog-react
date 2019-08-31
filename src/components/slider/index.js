@@ -61,7 +61,6 @@ class SliderRight extends Component {
           pageSize: this.state.pageSize
         }
       });
-      console.log('getTagList res', res);
       if (!res) return;
       if (res.status === 200 && res.data.code === 0) {
         this.setState({

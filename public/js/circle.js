@@ -1,5 +1,8 @@
-window.onload = function () {
-  var maxElements = 250;
+// window.onload = function () {
+
+// }
+(function () {
+  var maxElements = 200;
   var duration = 1500;
   var toAnimate = [];
   var radius = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
@@ -45,4 +48,4 @@ window.onload = function () {
   }
 
   toAnimate.forEach(animate);
-}
+})();

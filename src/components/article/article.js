@@ -24,7 +24,7 @@ class Articles extends Component {
       isSubmitLoading: false,
       list: [],
       content: "",
-      type: 3, //文章类型 => 1: 普通文章，2: 简历，3: 管理员介绍
+      type: 1, //文章类型 => 1: 普通文章，2: 简历，3: 管理员介绍
       articleDetail: {
         _id: "",
         author: "GolderBrother",
@@ -348,7 +348,7 @@ class Articles extends Component {
               }}
             />
           </div>
-          <div className="heart">
+          <div className="click-heart">
             <Button
               type="danger"
               size="large"

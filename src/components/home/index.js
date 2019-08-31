@@ -2,7 +2,6 @@ import './index.less';
 import logo from '@/assets/userLogo.jpg';
 import React, { Component } from 'react';
 import { Link,withRouter } from 'react-router-dom';
-
 @withRouter
 class Index extends Component {
   constructor(props) {
@@ -1281,7 +1280,7 @@ class Index extends Component {
             </a> */}
           </div>
           <div className="home-body">
-            <div id="particule-wrapper"></div>
+            {/* <div id="particule-wrapper"></div> */}
             <div className="list">
               {/* 这边路由跳转有问题：会自动重定向到404页面 */}
               <Link className="link" to={`/articles`}>
@@ -1293,7 +1292,7 @@ class Index extends Component {
               <Link className="link" to={`/project`}>
                 项目
               </Link>
-               {/* <a className="link" to={null} onClick={(e) => {this.routerTo(e, '/project')}}>
+              {/* <a className="link" to={null} onClick={(e) => {this.routerTo(e, '/project')}}>
                 项目
               </a> */}
               <a

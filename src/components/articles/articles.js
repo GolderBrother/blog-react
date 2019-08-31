@@ -185,7 +185,7 @@ class Articles extends Component {
         transitionLeaveTimeout={1000}
       >
         <li key={item._id} className="have-img">
-          <a className="wrap-img" href="/" target="_blank">
+          <a className="wrap-img" href="/" target="_self">
             <img
               className="img-blur-done"
               data-src={item.img_url}
@@ -197,7 +197,7 @@ class Articles extends Component {
           <div className="content">
             <Link
               className="title"
-              target="_blank"
+              target="_self"
               to={`/articleDetail?article_id=${item._id}`}
             >
               {item.title}
@@ -209,13 +209,13 @@ class Articles extends Component {
                 to={`/articleDetail?article_id=${item._id}`}
               >
                 <Icon type="eye" theme="outlined" /> {item.meta.views}
-              </Link>{" "}
+              </Link>
               <Link
                 target="_blank"
                 to={`/articleDetail?article_id=${item._id}`}
               >
                 <Icon type="message" theme="outlined" /> {item.meta.comments}
-              </Link>{" "}
+              </Link>
               <Link
                 target="_blank"
                 to={`/articleDetail?article_id=${item._id}`}

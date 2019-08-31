@@ -1,10 +1,10 @@
 @import '~antd/dist/antd.css';
 html body {
+  height: auto;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   color: #333;
-  overflow: hidden;
 }
 html body a{
   cursor: pointer;
