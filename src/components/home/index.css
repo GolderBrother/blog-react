@@ -1,3 +1,7 @@
+html,
+body {
+  overflow: hidden;
+}
 .home .content {
   position: fixed;
   left: 0;
@@ -6,7 +10,7 @@
   bottom: 0;
   font-size: 20px;
   text-align: center;
-  padding-top: .1rem;
+  padding-top: 1rem;
 }
 .home .content .home-logo {
   width: 220px;
@@ -24,7 +28,6 @@
   display: inline-block;
 }
 .home .content .home-body {
-  margin-top: 1rem;
   padding-top: .1rem;
 }
 .home .content .home-body .list {
@@ -42,7 +45,7 @@
   color: #0080ff;
 }
 .home .content .introduce {
-  color: #fff;
+  color: #960026;
 }
 @keyframes mylogo {
   0% {
@@ -64,7 +67,6 @@ svg {
   margin: 0 auto;
 }
 path {
-  fill: none;
   stroke: #f7b500;
   stroke-width: 1;
   stroke-linecap: round;
