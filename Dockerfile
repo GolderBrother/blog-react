@@ -7,7 +7,7 @@ LABEL version="1.0"
 # Linux下赋值文件夹到指定目录： cp -r ./build/.  /usr/share/nginx/html/blog-react
 COPY ./build /usr/share/nginx/html/blog-react
 # 配置nginx
-COPY ./blog-react.conf /etc/nginx/conf.d/
+COPY ./blog-react.conf /etc/nginx/conf.d
 # 向外暴露80端口(需要在nginx改端口)
 EXPOSE 80
 
