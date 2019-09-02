@@ -3,7 +3,7 @@
 // https://biaochenxuying.cn/articleDetail?article_id=5c7bd34e42b55e2ecc90976d
 const config = {
   'oauth_uri': 'https://github.com/login/oauth/authorize',
-  'redirect_uri': 'http://biaochenxuying.cn/login',
+  'redirect_uri': 'http://116.62.6.228/login',
   'client_id': 'cfb7f07a30c09efe8f6d',
   'client_secret': '4f51c9aba079dd97fdeaa18e9f9802d466f2a3e0',
 };
