@@ -77,10 +77,8 @@ class Login extends Component {
       search: window.location.search
     };
     window.sessionStorage.preventHistory = JSON.stringify(preventHistory);
-    // window.location.href = 'https://github.com/login/oauth/authorize?client_id=6de90ab270aea2bdb01c&redirect_uri=http://biaochenxuying.cn/login'
-    window.location.href = `${config.oauth_uri}?client_id=${
-      config.client_id
-    }&redirect_uri=${config.redirect_uri}`;
+    // window.location.href = 'https://github.com/login/oauth/authorize?client_id=cfb7f07a30c09efe8f6d&redirect_uri=http://116.62.6.228/login'
+    window.location.href = `${config.oauth_uri}?client_id=${config.client_id}&redirect_uri=${config.redirect_uri}`;
   }
   handleChange(event) {
     this.setState({
