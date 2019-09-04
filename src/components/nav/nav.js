@@ -41,6 +41,8 @@ const menuList =  [{
   path: "/message", type: "message", title: "留言"
 },{
   path: "/about", type: "user", title: "关于"
+},{
+  path: "/resume", type: "user", title: "简历"
 }];
 
 @connect(
@@ -439,7 +441,12 @@ class Nav extends Component {
                 <Icon type="user" onClick={this.showLoginModal} /> 关于
               </Link>
             </p>
-
+            <p onClick={this.onClose}>
+              <Link to="/resume">
+                <Icon type="user" onClick={this.showLoginModal} /> 个人简历
+              </Link>
+            </p>
+            
             {userInfo ? (
               <div onClick={this.handleLogout}>
                 <p>{userInfo.name}</p>
