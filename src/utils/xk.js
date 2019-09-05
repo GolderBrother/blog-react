@@ -5,7 +5,7 @@
 
 function arrIndexOf(arr, v) { //arr等于分割后的数组，v等于要本身有的Class
     for (let i = 0; i < arr.length; i++) { //开始循环数组
-        if (arr[i] == v) { //如果数组某个值等于V，也就是要本身有的Class
+        if (arr[i] === v) { //如果数组某个值等于V，也就是要本身有的Class
             return i; //那么返回第几个位置也就是i
 
         }
@@ -39,12 +39,13 @@ export function $(v) {
 	getElementsByClassName(父元素,子元素,页面中的class)
 */
 export function getElementsByClassName(obj, tagName, className) {
-    let aEls = obj.getElementsByTagName(tagName); //obj是什么盒子下的tagName标签
+    let aEls = obj && obj.getElementsByTagName(tagName); //obj是什么盒子下的tagName标签
     let arr = []; //建立一个空的数组
+    if(!aEls) return arr;
     for (let i = 0; i < aEls.length; i++) { //循环下盒子下面有多少tagName标签
         let aClassName = aEls[i].className.split(' '); //如果class的'box box1'中间具有空格，就拆分了
         for (let j = 0; j < aClassName.length; j++) { //然后循环拆分的数组里面
-            if (aClassName[j] == className) { //如果这个数组等于我们想要的
+            if (aClassName[j] === className) { //如果这个数组等于我们想要的
                 arr.push(aEls[i]); //那么就加到arr数组里面
                 break; //并且跳出去，避免脑残们的手误给元素增加相同的class
             }
@@ -120,7 +121,7 @@ export function doMove(obj, attr, dir, target, endFn) {
 
         obj.style[attr] = speed + 'px';
 
-        if (speed == target) {
+        if (speed === target) {
             clearInterval(obj.timer);
 
             /*
@@ -186,7 +187,7 @@ export function hide(obj, cy, sec, endFn) {
         obj.style['-moz-opacity'] = fadeNum1;
         obj.style['-khtml-opacity'] = fadeNum1;
         obj.style.opacity = fadeNum1;
-        if (fadeNum == cy * 100 || fadeNum1 == cy) {
+        if (fadeNum === cy * 100 || fadeNum1 === cy) {
             clearInterval(timer);
             endFn && endFn();
         }
@@ -209,7 +210,7 @@ export function out(obj, cy, sec, endFn) {
         obj.style['-moz-opacity'] = fadeNum1;
         obj.style['-khtml-opacity'] = fadeNum1;
         obj.style.opacity = fadeNum1;
-        if (fadeNum == cy * 100 || fadeNum1 == cy) {
+        if (fadeNum === cy * 100 || fadeNum1 === cy) {
             clearInterval(timer);
             endFn && endFn();
         }
