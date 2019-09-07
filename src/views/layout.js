@@ -43,24 +43,25 @@ class Layouts extends Component {
           <div>
             <Nav pathname={this.props.location.pathname} />
             <Layout className="layout">
-            {
+            {/* {
               isResumePage ? (<section className='resume-wrapper'><Resume /></section>) : (
-                <Content>
-                  <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                    <Content style={{ padding: '0 24px 0 0', minHeight: 280 }}>
-                      {this.props.children}
-                    </Content>
-                    {!isShowSlider ? (
-                      ''
-                    ) : (
-                      <Sider width={350} style={{ background: '#fff' }}>
-                        <SliderRight />
-                      </Sider>
-                    )}
-                  </Layout>
-                </Content>
+                
               )
-            }
+            } */}
+            <Content>
+              <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                <Content style={{ padding: '0 24px 0 0', minHeight: 280 }}>
+                  {this.props.children}
+                </Content>
+                {!isShowSlider ? (
+                  ''
+                ) : (
+                  <Sider width={350} style={{ background: '#fff' }}>
+                    <SliderRight />
+                  </Sider>
+                )}
+              </Layout>
+            </Content>
             </Layout>
             <Footer style={{ textAlign: 'center', background: '#fff' }}>
               全栈修炼 ©2019 Created by GolderBrother
