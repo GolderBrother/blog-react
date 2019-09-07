@@ -3,7 +3,7 @@ import './mobile.less';
 import React, { Component } from 'react';
 import { Layout, BackTop } from 'antd';
 import SliderRight from '@/components/slider/index';
-import Resume from '@/components/resume/Cool/index';
+// import Resume from '@/components/resume/Cool/index';
 import Nav from '@/components/nav/nav';
 import Index from '@/components/home/index';
 import { isMobileOrPc } from '@/utils/utils';
@@ -29,14 +29,14 @@ class Layouts extends Component {
       isShowSlider = true;
     }
 
-    let isIndexPage = false,
-        isResumePage = false;
+    let isIndexPage = false;
+    // let isResumePage = false;
     if (pathName === '/') {
       isIndexPage = true;
     }
-    if (pathName === '/resume') {
-      isResumePage = true;
-    }
+    // if (pathName === '/resume') {
+    //   isResumePage = true;
+    // }
     return (
       <div className="Layouts">
         {!isIndexPage ? (
