@@ -30,10 +30,10 @@ class Layouts extends Component {
     }
 
     let isIndexPage = false;
-    // let isResumePage = false;
     if (pathName === '/') {
       isIndexPage = true;
     }
+    // let isResumePage = false;
     // if (pathName === '/resume') {
     //   isResumePage = true;
     // }
