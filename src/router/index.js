@@ -112,12 +112,10 @@ let config = [
   //     loading: loadingComponent,
   //     delay: 300,
   //   }),
-    
   // },
   {
     name: '404',
-    path: '/404',
-    exact: true,
+    path: '*',
     component: Loadable({
       loader: () => import('@/components/NotFound'),
       loading: loadingComponent,
