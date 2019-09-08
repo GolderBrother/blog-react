@@ -42,7 +42,7 @@ const menuList =  [{
 },{
   path: "/about", type: "user", title: "关于"
 },{
-  path: "/coolResume", type: "book", title: "简历"
+  path: "/coolResume", type: "book", title: "简历", onClick: () => window.location = "/coolResume"
 }];
 
 @connect(
@@ -324,7 +324,7 @@ class Nav extends Component {
                   {
                     menuList && menuList.map((menu, index) => (
                       (
-                        <Menu.Item key={index} selectedKeys={true}>
+                        <Menu.Item key={index} selectedKeys={true} onClick={menu.onClick || null}>
                           <Link to={menu.path}> 
                             <Icon type={menu.type} theme="outlined" />
                             {menu.title}
