@@ -115,7 +115,7 @@ let config = [
   // },
   {
     name: '404',
-    path: '*',
+    path: '/404',
     component: Loadable({
       loader: () => import('@/components/NotFound'),
       loading: loadingComponent,

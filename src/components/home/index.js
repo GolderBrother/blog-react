@@ -1283,18 +1283,12 @@ class Index extends Component {
             {/* <div id="particule-wrapper"></div> */}
             <div className="list">
               {/* 这边路由跳转有问题：会自动重定向到404页面 */}
-              <Link className="link" to={`/articles`}>
+              <Link className="link" to="/articles">
                 文章
               </Link>
-              {/* <a className="link" to={null} onClick={(e) => {this.routerTo(e, '/articles')}}>
-              文章
-              </a> */}
-              <Link className="link" to={`/project`}>
+              <Link className="link" to="/project">
                 项目
               </Link>
-              {/* <a className="link" to={null} onClick={(e) => {this.routerTo(e, '/project')}}>
-                项目
-              </a> */}
               <a
                 target="_blank"
                 rel="noopener noreferrer"
