@@ -42,7 +42,7 @@ const menuList =  [{
 },{
   path: "/about", type: "user", title: "关于"
 },{
-  path: "/resume", type: "user", title: "简历"
+  path: "/resume-cool", type: "book", title: "简历"
 }];
 
 @connect(
