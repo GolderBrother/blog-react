@@ -42,7 +42,7 @@ const menuList =  [{
 },{
   path: "/about", type: "user", title: "关于"
 },{
-  path: "", type: "book", title: "简历", onClick: () => window.location.href = "http://116.62.6.228:8001/"
+  path: "/resume", type: "user", title: "简历"
 }];
 
 @connect(
@@ -330,7 +330,7 @@ class Nav extends Component {
                   {
                     menuList && menuList.map((menu, index) => (
                       (
-                        <Menu.Item key={index} selectedKeys={true} onClick={menu.onClick || null}>
+                        <Menu.Item key={index} selectedKeys={true}>
                           <Link to={menu.path}> 
                             <Icon type={menu.type} theme="outlined" />
                             {menu.title}
@@ -449,7 +449,7 @@ class Nav extends Component {
             </p>
             <p onClick={this.onClose}>
               <Link to="/resume">
-                <Icon type="book" onClick={this.goResumePage} /> 个人简历
+                <Icon type="user" onClick={this.goResumePage} /> 个人简历
               </Link>
             </p>
             
