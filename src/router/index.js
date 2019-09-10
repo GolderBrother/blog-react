@@ -103,16 +103,6 @@ let config = [
       delay: 300,
     }),
   },
-  // {
-  //   name: 'resume',
-  //   path: '/resume',
-  //   exact: true,
-  //   component: Loadable({
-  //     loader: () => import('@/components/resume/Cool/index.jsx'),
-  //     loading: loadingComponent,
-  //     delay: 300,
-  //   }),
-  // },
   {
     name: '404',
     path: '/404',

@@ -3,12 +3,11 @@ import './mobile.less';
 import React, { Component } from 'react';
 import { Layout, BackTop } from 'antd';
 import SliderRight from '@/components/slider/index';
-// import Resume from '@/components/resume/Cool/index';
 import Nav from '@/components/nav/nav';
 import Index from '@/components/home/index';
 import { isMobileOrPc } from '@/utils/utils';
 const { Content, Footer, Sider } = Layout;
-
+const year = new Date().getFullYear();
 class Layouts extends Component {
   constructor(props) {
     super(props);
@@ -33,21 +32,12 @@ class Layouts extends Component {
     if (pathName === '/') {
       isIndexPage = true;
     }
-    // let isResumePage = false;
-    // if (pathName === '/resume') {
-    //   isResumePage = true;
-    // }
     return (
       <div className="Layouts">
         {!isIndexPage ? (
           <div>
             <Nav pathname={this.props.location.pathname} />
             <Layout className="layout">
-            {/* {
-              isResumePage ? (<section className='resume-wrapper'><Resume /></section>) : (
-                
-              )
-            } */}
             <Content>
               <Layout style={{ padding: '24px 0', background: '#fff' }}>
                 <Content style={{ padding: '0 24px 0 0', minHeight: 280 }}>
@@ -64,7 +54,7 @@ class Layouts extends Component {
             </Content>
             </Layout>
             <Footer style={{ textAlign: 'center', background: '#fff' }}>
-              全栈修炼 ©2019 Created by GolderBrother
+              全栈修炼 ©{year} Created by GolderBrother
             </Footer>
             <BackTop />
           </div>

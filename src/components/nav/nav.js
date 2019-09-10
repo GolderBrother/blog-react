@@ -42,7 +42,8 @@ const menuList =  [{
 },{
   path: "/about", type: "user", title: "关于"
 },{
-  path: "", type: "book", title: "简历", onClick: () => window.location.href = "http://116.62.6.228:8001/"
+  // TODO：问题，点两下才能生效  / -> coolResume -> IP:8001
+  path: "", type: "book", title: "个人简历", onClick: () => window.location.href = "http://116.62.6.228:8001/"
 }];
 
 @connect(
@@ -448,8 +449,8 @@ class Nav extends Component {
               </Link>
             </p>
             <p onClick={this.onClose}>
-              <Link to="/resume">
-                <Icon type="book" onClick={this.goResumePage} /> 个人简历
+              <Link to="" onClick={this.goResumePage}>
+                <Icon type="book" /> 个人简历
               </Link>
             </p>
             

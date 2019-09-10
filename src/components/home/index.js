@@ -7,6 +7,7 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.goResumePage = this.goResumePage.bind(this);
   }
 
   componentDidMount() {
@@ -1260,6 +1261,11 @@ class Index extends Component {
     })(window, 'equestAnimationFrame');
   }
 
+  // 前往我的简历页面
+  goResumePage(){
+    window.location.href = "http://116.62.6.228:8001/";
+  }
+
   routerTo(e = window.event, path){
     e.preventDefault();
     this.props.history.push(path);
@@ -1288,6 +1294,9 @@ class Index extends Component {
               </Link>
               <Link className="link" to="/project">
                 项目
+              </Link>
+              <Link className="link" to="" onClick={this.goResumePage}>
+                个人简历
               </Link>
               <a
                 target="_blank"
