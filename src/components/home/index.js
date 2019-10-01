@@ -1279,7 +1279,7 @@ class Index extends Component {
         <div className="content">
           <div className="home-header">
             <Link className="link" to={`/home`}>
-              <img className="home-logo" src={logo} alt="biaochenxuying logo" />
+              <img className="home-logo" draggable="false" src={logo} alt="biaochenxuying logo" />
             </Link>
             {/* <a className="link" onClick={(e) => {this.routerTo(e, '/home')}}>
               <img className="home-logo" src={logo} alt="biaochenxuying logo" />
