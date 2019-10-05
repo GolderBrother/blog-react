@@ -74,7 +74,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "push": "git add -A && git commit -a -m 'update' && git push origin master"
   },
   "eslintConfig": {
     "extends": "react-app"
