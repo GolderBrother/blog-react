@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ConnectedRouter } from 'connected-react-router'
 import { Route, Switch } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 import routers from './router/index.js';
 import Layouts from './views/layout';
-import NotFound from '@/components/NotFound';
+// import NotFound from '@/components/NotFound';
 
 const App = ({ history }) => {
   return (

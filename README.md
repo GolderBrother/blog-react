@@ -122,6 +122,17 @@ npm run build 或者 yarn run build
 
 > [后端：https://github.com/GolderBrother/blog-node-egg](https://github.com/GolderBrother/blog-node-egg)
 
+## 遇到的问题
+- 提交代码后，启动docker容器失败，持续集成和持续部署不生效，也不报错!
+> 解决办法： 端口冲突，先杀死启动端口对应的进程后在启动容器
+```bash
+# TODO：这边启动会出现80端口被占用，导致容器启动失败，需要解决，因此先杀掉所有80端口的进程
+kill -9 $(lsof -i tcp:80 -t)
+```
+
+## TODO
+- 1.购买域名，将IP映射到域名，预期域名为 ```www.golderBrother.com/cn```
+
 ## 最后
 
-如果您觉得本项目和文章不错或者对你有所帮助，请给个星吧，你的肯定就是我继续创作的最大动力。
+如果您觉得本项目和文章不错或者对你有所帮助，请给个星(star)吧，你的肯定就是我继续创作的最大动力。
