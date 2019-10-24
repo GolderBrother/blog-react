@@ -7,7 +7,8 @@ import Nav from '@/components/nav/nav';
 import Index from '@/components/home/index';
 import { isMobileOrPc } from '@/utils/utils';
 const { Content, Footer, Sider } = Layout;
-const year = new Date().getFullYear();
+const STRAT_YEAR = 2017;
+const currentYear = new Date().getFullYear();
 class Layouts extends Component {
   constructor(props) {
     super(props);
@@ -53,8 +54,12 @@ class Layouts extends Component {
               </Layout>
             </Content>
             </Layout>
+            {/* <Footer style={{ textAlign: 'center', background: '#fff' }}>
+              全栈修炼 ©{year} Created by GolderBrother All Rights Reserved.
+            </Footer> */}
             <Footer style={{ textAlign: 'center', background: '#fff' }}>
-              全栈修炼 ©{year} Created by GolderBrother
+              <p>Copyright © {STRAT_YEAR}-{currentYear} GolderBrother. ICP证：闽ICP备19021195号</p>
+              <p>Powered by React.js + Egg.js + MongoDB</p>
             </Footer>
             <BackTop />
           </div>

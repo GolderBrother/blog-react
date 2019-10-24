@@ -26,7 +26,7 @@ import LoadingCom from "../loading/loading";
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-
+const DOMAIN = "http://www.golderbrother.cn";
 const menuList =  [{
   path: "/", type: "home", title: "首页"
 },{
@@ -43,7 +43,7 @@ const menuList =  [{
   path: "/about", type: "user", title: "关于"
 },{
   // TODO：问题，点两下才能生效  / -> coolResume -> IP:8001
-  path: "", type: "book", title: "个人简历", onClick: () => window.location.href = "http://116.62.6.228:8001/"
+  path: "", type: "book", title: "个人简历", onClick: () => window.location.href = `${DOMAIN}:8001/`
 }];
 
 @connect(
@@ -217,7 +217,7 @@ class Nav extends Component {
 
   // 前往我的简历页面
   goResumePage(){
-    window.location.href = "http://116.62.6.228:8001/";
+    window.location.href = `${DOMAIN}:8001/`;
   }
 
   showLoginModal() {
