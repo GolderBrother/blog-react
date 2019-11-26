@@ -1,4 +1,4 @@
-!![主页](https://upload-images.jianshu.io/upload_images/12890819-8420689b7238972a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![主页](http://img.golderbrother.cn/blog-home.png)
 
 ## 前言
 
@@ -10,11 +10,11 @@
 
 - pc 端
 
-!![首页](https://upload-images.jianshu.io/upload_images/12890819-4fb796cd5ac5282d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![首页](http://img.golderbrother.cn/blog-articles.png)
 
 - 移动端适配
 
-!![mobile.gif](https://upload-images.jianshu.io/upload_images/12890819-f97e98dfa9ac76b8.gif?imageMogr2/auto-orient/strip)
+![mobile](http://img.golderbrother.cn/blog-mobile.png)
 
 ## 功能描述
 
@@ -131,7 +131,8 @@ kill -9 $(lsof -i tcp:80 -t)
 ```
 
 ## TODO
-- 1.购买域名，将IP映射到域名，预期域名为 ```www.golderBrother.com/cn```
+- [x] 1.购买域名，将IP映射到域名，预期域名为 ```www.golderBrother.com/cn```(已完成)
+- [] 2.简历页面的静态资源上传到七牛云CDN
 
 ## 最后
 
