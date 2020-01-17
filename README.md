@@ -114,13 +114,13 @@ npm run build 或者 yarn run build
 
 **项目地址：**
 
-> [vue 前台展示: https://github.com/GolderBrother/blog-vue-typescript](https://github.com/GolderBrother/blog-vue-typescript)
+> [vue 前台展示](https://github.com/GolderBrother/blog-vue-typescript)
 
-> [react 前台展示: https://github.com/GolderBrother/blog-react](https://github.com/GolderBrother/blog-react)
+> [react 前台展示](https://github.com/GolderBrother/blog-react)
 
-> [管理后台：https://github.com/GolderBrother/blog-react-admin](https://github.com/GolderBrother/blog-react-admin)
+> [管理后台](https://github.com/GolderBrother/blog-react-admin)
 
-> [后端：https://github.com/GolderBrother/blog-node-egg](https://github.com/GolderBrother/blog-node-egg)
+> [后端](https://github.com/GolderBrother/blog-node-egg)
 
 ## 遇到的问题
 - 提交代码后，启动docker容器失败，持续集成和持续部署不生效，也不报错!
