@@ -131,7 +131,7 @@ kill -9 $(lsof -i tcp:80 -t)
 ```
 
 ## TODO
-- [x] 1.购买域名，将IP映射到域名，预期域名为 ```www.golderBrother.com```(已完成)
+- [x] 1.购买域名，将IP映射到域名，预期域名为 ```www.golderBrother.cn```(已完成)
 - [ ] 2.简历页面的静态资源上传到七牛云CDN
 
 ## 最后
