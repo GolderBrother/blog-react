@@ -1263,7 +1263,7 @@ class Index extends Component {
 
   // 前往我的简历页面
   goResumePage(){
-    window.location.href = "http://116.62.6.228:8001/";
+    window.location.href = "http://www.golderbrother.cn:8001/";
   }
 
   routerTo(e = window.event, path){
