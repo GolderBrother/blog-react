@@ -16,7 +16,8 @@ class Index extends Component {
     uniform mat4 uModelview;
     uniform vec3 uResolution;
     uniform vec3 uOffset;
-    uniform vec3 uDOF;  //x:focus distance, y:focus radius, z:max radius
+    uniform vec3
+uDOF;  //x:focus distance, y:focus radius, z:max radius
     uniform vec3 uFade; //x:start distance, y:half distance, z:near fade start
 
     attribute vec3 aPosition;
@@ -1306,7 +1307,7 @@ class Index extends Component {
               >
                 github
               </a>
-              {/* <a
+              <a
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"
@@ -1314,7 +1315,7 @@ class Index extends Component {
               >
                 掘金
               </a>
-              <a
+              {/* <a
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"
