@@ -1310,7 +1310,7 @@ class Index extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"
-                href={`https://juejin.im/user/591d6b4d0ce463006926ae40`}
+                href={`https://juejin.im/user/5b9b253ae51d450e6e039595`}
               >
                 掘金
               </a>
@@ -1318,7 +1318,7 @@ class Index extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"
-                href={`https://www.zhihu.com/people/gu-jian-qi-tan-shui/activities`}
+                href={`javascript:void(0);`}
               >
                 知乎
               </a>
@@ -1326,7 +1326,7 @@ class Index extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"
-                href={`https://segmentfault.com/u/biaochenxuying`}
+                href={`javascript:void(0);`}
               >
                 segmentfault
               </a>
@@ -1334,7 +1334,7 @@ class Index extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"
-                href={`https://www.jianshu.com/u/91717b553bfd`}
+                href={`javascript:void(0);`}
               >
                 简书
               </a> */}
