@@ -1264,7 +1264,7 @@ uDOF;  //x:focus distance, y:focus radius, z:max radius
 
   // 前往我的简历页面
   goResumePage(){
-    window.location.href = "http://www.golderbrother.cn:8001/";
+    window.location.href = "http://www.golderbrother.cn:8100/";
   }
 
   routerTo(e = window.event, path){
